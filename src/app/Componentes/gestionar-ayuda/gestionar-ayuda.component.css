@@ -42,3 +42,21 @@
 .texto-error {
     color: red;
 }
+
+.mensajeBackOk {
+    color: rgb(77, 199, 77);
+}
+
+.mensajeBackWarning {
+    background-color: rgb(231, 157, 19);
+}
+
+.mensajeBackError {
+    background-color: red;
+}
+
+.mensajesBack {
+    margin-top: 5%;
+    text-align: center;
+    font-size: xx-large;
+}

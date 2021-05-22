@@ -1,1 +1,1 @@
-export const servicePath = '';
+export const servicePath = 'http://localhost:8080/ms-gestion-proyectos';

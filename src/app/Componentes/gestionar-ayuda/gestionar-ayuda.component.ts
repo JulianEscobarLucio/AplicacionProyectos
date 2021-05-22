@@ -13,6 +13,10 @@ export class GestionarAyudaComponent implements OnInit {
   mensajeNombre = '';
   mensajeDescripcion = '';
   base64String = '';
+  mensajeBackOk = '';
+  mensajeBackWarning = '';
+  mensajeBackError = '';
+
 
 
   constructor(private ayudaServiceService: AyudaServiceService) {
@@ -27,12 +31,23 @@ export class GestionarAyudaComponent implements OnInit {
     }
     this.ayudaServiceService.guardar(this.ayuda).subscribe(
       response => {
-        console.log(response);
+        if (response.estadoDelaOperacion) {
+          this.mensajeBackOk = response.mensaje;
+        } else {
+          this.mensajeBackWarning = response.mensaje;
+        }
       },
       error => {
-        console.log(error);
+        this.mensajeBackError = error.mensaje;
       }
     );
+    this.ayuda = {
+      id: '',
+      nombre: '',
+      descripcion: '',
+      enlace: '',
+      archivo: '',
+    };
   }
 
   validarCampos(): boolean {
@@ -57,12 +72,18 @@ export class GestionarAyudaComponent implements OnInit {
     };
     this.mensajeNombre = '';
     this.mensajeDescripcion = '';
+    this.mensajeBackOk = '';
+    this.mensajeBackWarning = '';
+    this.mensajeBackError = '';
   }
 
 
   limpiarMensajes(): void {
     this.mensajeNombre = '';
     this.mensajeDescripcion = '';
+    this.mensajeBackOk = '';
+    this.mensajeBackWarning = '';
+    this.mensajeBackError = '';
   }
 
 }

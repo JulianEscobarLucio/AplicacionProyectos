@@ -38,6 +38,11 @@
                             <button class="btn-cancelar " (click)="cancelar()">Cancelar</button>
                         </div>
                     </div>
+                    <div class="row mensajesBack">
+                        <span class="mensajeBackOk" *ngIf="mensajeBackOk">{{mensajeBackOk}}</span>
+                        <span class="mensajeBackWarning" *ngIf="mensajeBackWarning">{{mensajeBackWarning}}</span>
+                        <span class="mensajeBackError" *ngIf="mensajeBackError">{{mensajeBackError}}</span>
+                    </div>
                 </form>
             </div>
         </div>
