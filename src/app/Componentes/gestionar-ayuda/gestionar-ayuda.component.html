@@ -1,0 +1,46 @@
+<app-navegador>
+</app-navegador>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="formulario-ayuda">
+            <div class="titulo">
+                <h1>Gestionar ayuda</h1>
+            </div>
+            <div class="formulario form">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlInput1">Nombre*:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="ayuda.nombre" (keyup)="limpiarMensajes()" name="nombre">
+                            <span class="texto-error" *ngIf="mensajeNombre">{{mensajeNombre}}</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlInput1">Descripción*:</label>
+                            <textarea class="form-control" id="descripcion" placeholder="Descripción" rows="3" [(ngModel)]="ayuda.descripcion" (keyup)="limpiarMensajes()" name="descripcion"></textarea>
+                            <span class="texto-error" *ngIf="mensajeDescripcion">{{mensajeDescripcion}}</span>
+                        </div>
+                    </div>
+                    <div class=" row ">
+                        <div class="form-group col-6 ">
+                            <label for="enlace">Enlace:</label>
+                            <input type="text" class="form-control " id="enlace " placeholder="Enlace" [(ngModel)]="ayuda.enlace" name="descripcion">
+                        </div>
+                        <div class="form-group col-6 contenedor-cargar-archivo">
+                            <input type="file" />
+                        </div>
+                    </div>
+                    <div class="row botones ">
+                        <div class="form-group col-6 guardar ">
+                            <button class="btn-guardar " (click)="guardar()">Guardar</button>
+                        </div>
+                        <div class="form-group col-6 cancelar ">
+                            <button class="btn-cancelar " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 "></div>
+</div>
