@@ -33,21 +33,23 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label>Fecha inicio*:</label>
-                            <input class="form-control" type="date" value="2021-06-01" id="fechainicio" [(ngModel)]="actividad.fechaInicio">
+                            <input class="form-control" type="date" #myDate [value]="actividad.fechaInicio | date:'yyyy-MM-dd'" (input)="actividad.fechaInicio=parseDate($event.target.value)" name="fechainicio" (focus)="limpiarMensajes()" />
+                            <span class="texto-error" *ngIf="mensajeFechaInicio">{{mensajeFechaInicio}}</span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="estado">Estado*:</label>
-                            <select class="form-control" [(ngModel)]="actividad.estado">
-                                <option selected>Seleccione un estado</option>
-                                <option *ngFor="let estado of estados">{{estado}}</option>
+                            <select class="form-select form-select" [(ngModel)]="actividad.estado" name="estado" (focus)="limpiarMensajes()">
+                                <option class="dropdown-item" disabled selected value="undefined">Seleccione un estado</option>
+                                <option [ngValue]="estado" *ngFor="let estado of estados">{{estado}}</option>
                             </select>
-                            <span class="texto-error" *ngIf="mensajeDescripcion">{{mensajeDescripcion}}</span>
+                            <span class="texto-error" *ngIf="mensajeEstado">{{mensajeEstado}}</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-6 contenedor-row">
                             <label>Fecha fin:</label>
-                            <input class="form-control" type="date" value="2021-06-02" id="fechafin" [(ngModel)]="actividad.fechaFin">
+                            <input class="form-control" type="date" #myDate [value]="actividad.fechaFin | date:'yyyy-MM-dd'" (input)="actividad.fechaFin=parseDate($event.target.value)" name="fechafin" (focus)="limpiarMensajes()" (change)="validarFechaFin()" />
+                            <span class="texto-error" *ngIf="mensajeFechaFin">{{mensajeFechaFin}}</span>
                         </div>
                     </div>
                     <div class="row botones ">

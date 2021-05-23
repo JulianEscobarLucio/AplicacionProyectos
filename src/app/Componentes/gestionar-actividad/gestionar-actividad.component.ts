@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Actividad } from 'src/app/Modelos/actividad';
-import { AyudaServiceService } from '../../Servicios/ayuda-service.service';
+import { ActividadServiceService } from '../../Servicios/actividad-service.service';
 
 @Component({
   selector: 'app-gestionar-actividad',
@@ -13,12 +13,14 @@ export class GestionarActividadComponent implements OnInit {
   mensajeNombre = '';
   mensajeDescripcion = '';
   mensajeEstado = '';
+  mensajeFechaInicio = '';
+  mensajeFechaFin = '';
   mensajeBackOk = '';
   mensajeBackWarning = '';
   mensajeBackError = '';
   estados: string[];
 
-  constructor(private ayudaServiceService: AyudaServiceService) {
+  constructor(private actividadServiceService: ActividadServiceService) {
   }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class GestionarActividadComponent implements OnInit {
     if (!this.validarCampos()) {
       return;
     }
-    this.ayudaServiceService.guardar(this.actividad).subscribe(
+    this.actividadServiceService.guardar(this.actividad).subscribe(
       response => {
         if (response.estadoDelaOperacion) {
           this.mensajeBackOk = response.mensaje;
@@ -46,9 +48,9 @@ export class GestionarActividadComponent implements OnInit {
       descripcion: '',
       evidencia: '',
       recomendacion: '',
-      fechaInicio: '2021-06-01',
+      fechaInicio: '',
       estado: '',
-      fechaFin: '2021-06-02',
+      fechaFin: '',
     };
   }
 
@@ -59,8 +61,14 @@ export class GestionarActividadComponent implements OnInit {
     } else if (this.actividad.descripcion === undefined || this.actividad.descripcion === '') {
       this.mensajeDescripcion = 'Falta diligenciar el campo descripción';
       return false;
+    } else if (this.actividad.fechaInicio === undefined || this.actividad.fechaInicio === '') {
+      this.mensajeFechaInicio = 'Falta ingersar la fecha de inicio';
+      return false;
     } else if (this.actividad.estado === undefined || this.actividad.estado === '') {
-      this.mensajeDescripcion = 'Falta diligenciar el campo descripción';
+      this.mensajeEstado = 'Falta seleccionar el estado';
+      return false;
+    } else if (this.actividad.fechaFin !== undefined && this.actividad.fechaFin < this.actividad.fechaInicio) {
+      this.mensajeFechaFin = 'La fecha fin de la actividad no puede ser inferior a la fecha inicial';
       return false;
     }
     return true;
@@ -73,12 +81,15 @@ export class GestionarActividadComponent implements OnInit {
       descripcion: '',
       evidencia: '',
       recomendacion: '',
-      fechaInicio: '2021-06-01',
+      fechaInicio: '',
       estado: '',
-      fechaFin: '2021-06-02',
+      fechaFin: '',
     };
     this.mensajeNombre = '';
     this.mensajeDescripcion = '';
+    this.mensajeEstado = '';
+    this.mensajeFechaInicio = '';
+    this.mensajeFechaFin = '';
     this.mensajeBackOk = '';
     this.mensajeBackWarning = '';
     this.mensajeBackError = '';
@@ -89,9 +100,24 @@ export class GestionarActividadComponent implements OnInit {
     this.mensajeNombre = '';
     this.mensajeDescripcion = '';
     this.mensajeEstado = '';
+    this.mensajeFechaInicio = '';
+    this.mensajeFechaFin = '';
     this.mensajeBackOk = '';
     this.mensajeBackWarning = '';
     this.mensajeBackError = '';
+  }
+
+  parseDate(dateString: string): Date {
+    if (dateString) {
+        return new Date(dateString);
+    }
+    return null;
+  }
+
+  validarFechaFin() {
+    if (this.actividad.fechaFin !== undefined && this.actividad.fechaFin < this.actividad.fechaInicio) {
+      this.mensajeFechaFin = 'La fecha fin de la actividad no puede ser inferior a la fecha inicial';
+    }
   }
 
 }
