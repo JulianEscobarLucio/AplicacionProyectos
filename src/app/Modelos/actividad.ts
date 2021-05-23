@@ -3,7 +3,7 @@ nombre: string;
 descripcion: string;
 evidencia: string;
 recomendacion: string;
-fechaInicio: string;
+fechaInicio: Date;
 estado: string;
-fechaFin: string;
+fechaFin: Date;
 }

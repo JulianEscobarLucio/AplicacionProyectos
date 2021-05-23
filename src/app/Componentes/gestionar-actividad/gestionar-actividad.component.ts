@@ -48,9 +48,9 @@ export class GestionarActividadComponent implements OnInit {
       descripcion: '',
       evidencia: '',
       recomendacion: '',
-      fechaInicio: '',
+      fechaInicio: undefined,
       estado: '',
-      fechaFin: '',
+      fechaFin: undefined,
     };
   }
 
@@ -61,8 +61,8 @@ export class GestionarActividadComponent implements OnInit {
     } else if (this.actividad.descripcion === undefined || this.actividad.descripcion === '') {
       this.mensajeDescripcion = 'Falta diligenciar el campo descripción';
       return false;
-    } else if (this.actividad.fechaInicio === undefined || this.actividad.fechaInicio === '') {
-      this.mensajeFechaInicio = 'Falta ingersar la fecha de inicio';
+    } else if (this.actividad.fechaInicio === undefined ) {
+      this.mensajeFechaInicio = 'Falta ingresar la fecha de inicio';
       return false;
     } else if (this.actividad.estado === undefined || this.actividad.estado === '') {
       this.mensajeEstado = 'Falta seleccionar el estado';
@@ -81,9 +81,9 @@ export class GestionarActividadComponent implements OnInit {
       descripcion: '',
       evidencia: '',
       recomendacion: '',
-      fechaInicio: '',
+      fechaInicio: undefined,
       estado: '',
-      fechaFin: '',
+      fechaFin: undefined,
     };
     this.mensajeNombre = '';
     this.mensajeDescripcion = '';
