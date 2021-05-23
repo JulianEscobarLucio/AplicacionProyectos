@@ -1,0 +1,71 @@
+<app-navegador>
+</app-navegador>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="formulario-ayuda">
+            <div class="titulo">
+                <h1>Gestionar actividad</h1>
+            </div>
+            <div class="formulario form">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlInput1">Nombre*:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="actividad.nombre" (keyup)="limpiarMensajes()" name="nombre">
+                            <span class="texto-error" *ngIf="mensajeNombre">{{mensajeNombre}}</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="descripcion">Descripción*:</label>
+                            <textarea class="form-control" id="descripcion" placeholder="Descripción" rows="3" [(ngModel)]="actividad.descripcion" (keyup)="limpiarMensajes()" name="descripcion"></textarea>
+                            <span class="texto-error" *ngIf="mensajeDescripcion">{{mensajeDescripcion}}</span>
+                        </div>
+                    </div>
+                    <div class="row contenedor-row">
+                        <div class="form-group col-6 contenedor-cargar-archivo">
+                            <input type="file" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="recomendacion">Recomendación:</label>
+                            <textarea class="form-control" id="recomendacion" placeholder="Recomendación" rows="3" [(ngModel)]="actividad.recomendacion" (keyup)="limpiarMensajes()" name="recomendacion"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>Fecha inicio*:</label>
+                            <input class="form-control" type="date" value="2021-06-01" id="fechainicio" [(ngModel)]="actividad.fechaInicio">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="estado">Estado*:</label>
+                            <select class="form-control" [(ngModel)]="actividad.estado">
+                                <option selected>Seleccione un estado</option>
+                                <option *ngFor="let estado of estados">{{estado}}</option>
+                            </select>
+                            <span class="texto-error" *ngIf="mensajeDescripcion">{{mensajeDescripcion}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6 contenedor-row">
+                            <label>Fecha fin:</label>
+                            <input class="form-control" type="date" value="2021-06-02" id="fechafin" [(ngModel)]="actividad.fechaFin">
+                        </div>
+                    </div>
+                    <div class="row botones ">
+                        <div class="form-group col-6 guardar ">
+                            <button class="btn-guardar " (click)="guardar()">Guardar</button>
+                        </div>
+                        <div class="form-group col-6 cancelar ">
+                            <button class="btn-cancelar " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                    <div class="row mensajesBack">
+                        <span class="mensajeBackOk" *ngIf="mensajeBackOk">{{mensajeBackOk}}</span>
+                        <span class="mensajeBackWarning" *ngIf="mensajeBackWarning">{{mensajeBackWarning}}</span>
+                        <span class="mensajeBackError" *ngIf="mensajeBackError">{{mensajeBackError}}</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 "></div>
+</div>
