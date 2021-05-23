@@ -26,7 +26,7 @@ import { ActividadComponent } from './Modelos/actividad/actividad.component';
     FormsModule,
     HttpClientModule
   ],
-   providers: [],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

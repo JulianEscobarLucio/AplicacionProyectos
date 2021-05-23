@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Actividad } from 'src/app/Modelos/actividad';
 import { ActividadServiceService } from '../../Servicios/actividad-service.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-gestionar-actividad',
@@ -20,17 +21,24 @@ export class GestionarActividadComponent implements OnInit {
   mensajeBackError = '';
   estados: string[];
 
+  imageError: string;
+  isImageSaved: boolean;
+  cardImageBase64 = '';
+  prueba = false;
+  mensajeDocumentoError = '';
+
   constructor(private actividadServiceService: ActividadServiceService) {
   }
 
   ngOnInit() {
-    this.estados = ['Iniciado', 'En proceso', 'Finalizado'];
+    this.estados = ['Iniciado', 'En proceso', 'Finalizado', 'Programado'];
   }
 
   guardar(): void {
     if (!this.validarCampos()) {
       return;
     }
+    this.actividad.evidencia = document.getElementById('archivo').innerHTML;
     this.actividadServiceService.guardar(this.actividad).subscribe(
       response => {
         if (response.estadoDelaOperacion) {
@@ -40,7 +48,7 @@ export class GestionarActividadComponent implements OnInit {
         }
       },
       error => {
-        this.mensajeBackError = error.mensaje;
+        this.mensajeBackError = error.error.mensaje;
       }
     );
     this.actividad = {
@@ -70,6 +78,8 @@ export class GestionarActividadComponent implements OnInit {
     } else if (this.actividad.fechaFin !== undefined && this.actividad.fechaFin < this.actividad.fechaInicio) {
       this.mensajeFechaFin = 'La fecha fin de la actividad no puede ser inferior a la fecha inicial';
       return false;
+    } else if (this.mensajeDocumentoError !== '') {
+      return false;
     }
     return true;
   }
@@ -93,6 +103,8 @@ export class GestionarActividadComponent implements OnInit {
     this.mensajeBackOk = '';
     this.mensajeBackWarning = '';
     this.mensajeBackError = '';
+    this.mensajeDocumentoError = '';
+
   }
 
 
@@ -105,6 +117,9 @@ export class GestionarActividadComponent implements OnInit {
     this.mensajeBackOk = '';
     this.mensajeBackWarning = '';
     this.mensajeBackError = '';
+    this.mensajeDocumentoError = '';
+
+    
   }
 
   parseDate(dateString: string): Date {
@@ -119,5 +134,30 @@ export class GestionarActividadComponent implements OnInit {
       this.mensajeFechaFin = 'La fecha fin de la actividad no puede ser inferior a la fecha inicial';
     }
   }
+
+  fileChangeEvent(fileInput: any) {
+    this.imageError = null;
+    this.mensajeDocumentoError = '';
+    if (fileInput.target.files && fileInput.target.files[0]) {
+
+        const max_size = 20971520;
+        const allowed_types = [ 'application/pdf'];
+        const max_height = 15200;
+        const max_width = 25600;
+
+        if (!_.includes(allowed_types, fileInput.target.files[0].type)) {
+            this.mensajeDocumentoError = 'Solo se permiten archivos PDF';
+            return false;
+        }
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.cardImageBase64 = e.target.result;
+        };
+
+        reader.readAsDataURL(fileInput.target.files[0]);
+    }
+}
 
 }

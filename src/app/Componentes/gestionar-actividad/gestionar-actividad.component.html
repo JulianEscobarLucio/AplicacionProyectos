@@ -23,8 +23,9 @@
                     </div>
                     <div class="row contenedor-row">
                         <div class="form-group col-6 contenedor-cargar-archivo">
-                            <input type="file" />
-                        </div>
+                            <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" />
+                            <span class="mensajeArchivo">Extensiones soportadas  ['.pfd']</span><br/>
+                            <span class="texto-error" *ngIf="mensajeDocumentoError">{{mensajeDocumentoError}}</span> </div>
                         <div class="form-group col-md-6">
                             <label for="recomendacion">Recomendación:</label>
                             <textarea class="form-control" id="recomendacion" placeholder="Recomendación" rows="3" [(ngModel)]="actividad.recomendacion" (keyup)="limpiarMensajes()" name="recomendacion"></textarea>
@@ -64,6 +65,7 @@
                         <span class="mensajeBackOk" *ngIf="mensajeBackOk">{{mensajeBackOk}}</span>
                         <span class="mensajeBackWarning" *ngIf="mensajeBackWarning">{{mensajeBackWarning}}</span>
                         <span class="mensajeBackError" *ngIf="mensajeBackError">{{mensajeBackError}}</span>
+                        <textarea style="display: none;" class="form-control" id="archivo" placeholder="Descripción" rows="3" name="descripcion">{{cardImageBase64}}</textarea>
                     </div>
                 </form>
             </div>

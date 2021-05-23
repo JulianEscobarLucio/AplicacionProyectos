@@ -48,11 +48,11 @@
 }
 
 .mensajeBackWarning {
-    background-color: rgb(231, 157, 19);
+    color: rgb(231, 157, 19);
 }
 
 .mensajeBackError {
-    background-color: red;
+    color: red;
 }
 
 .mensajesBack {
